@@ -8,3 +8,15 @@ function commerce_dotpay_help($path, $arg) {
 			break;
 	}
 }
+
+
+function commerce_dotpay_commerce_payment_method_info() {
+	$payment_methods = array();
+	$payment_methods['dotpay_payment'] = array(
+		'title' => t('Dotpay credit card payment solution'),
+		'display_title' => t('Pay with a dotpay'),
+		'description' => t('Dotpay payment solution'),
+		'active' => TRUE,
+	);
+	return $payment_methods;
+}
