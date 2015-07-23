@@ -9,6 +9,21 @@ function commerce_dotpay_help($path, $arg) {
 	}
 }
 
+function commerce_dotpay_menu() {
+	$items['dotpay/callback'] = array(
+		'page callback' => 'commerce_dotpay_callback',
+		'access callback' => TRUE,
+		'type' => MENU_CALLBACK,
+	);
+
+	return $items;
+}
+
+
+function commerce_dotpay_callback() {
+	return false;
+}
+
 
 function commerce_dotpay_commerce_payment_method_info() {
 	$payment_methods = array();
@@ -55,7 +70,6 @@ function commerce_dotpay_payment_settings_form($settings = NULL) {
 
 	return $form;
 }
-
 
 function commerce_dotpay_paynment_default_settings(){
 	return array(
