@@ -28,11 +28,27 @@ function commerce_dotpay_payment_settings_form($settings = NULL) {
 
 	$form = array();
 
-	$form['abc'] = array(
+	$form['identifier'] = array(
 		'#type' => 'textfield',
-		'#title' => t('title'),
-		'#description' => t('Your API Login ID is different from the username you use to login to your Authorize.Net account. Once you login, browse to your Account tab and click the <em>API Login ID and Transaction Key</em> link to find your API Login ID. If you are using a new Authorize.Net account, you may still need to generate an ID.'),
-		'#default_value' => $settings['abc'],
+		'#title' => t('identifier'),
+		'#description' => t('description identifier'),
+		'#default_value' => $settings['identifier'],
+		'#required' => TRUE,
+	);
+
+	$form['pid'] = array(
+		'#type' => 'textfield',
+		'#title' => t('pid'),
+		'#description' => t('description pid'),
+		'#default_value' => $settings['pid'],
+		'#required' => TRUE,
+	);
+
+	$form['payment_url'] = array(
+		'#type' => 'textfield',
+		'#title' => t('payment_url'),
+		'#description' => t('description payment_url'),
+		'#default_value' => $settings['payment_url'],
 		'#required' => TRUE,
 	);
 
@@ -43,7 +59,9 @@ function commerce_dotpay_payment_settings_form($settings = NULL) {
 
 function commerce_dotpay_paynment_default_settings(){
 	return array(
-		'abc' => '',
+		'identifier' => '',
+		'pid' => '',
+		'payment_url' => ''
 	);
 }
 
