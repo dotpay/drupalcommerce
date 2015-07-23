@@ -12,7 +12,7 @@ function commerce_dotpay_help($path, $arg) {
 
 function commerce_dotpay_commerce_payment_method_info() {
 	$payment_methods = array();
-	$payment_methods['dotpay_payment'] = array(
+	$payment_methods['commerce_dotpay_payment'] = array(
 		'title' => t('Dotpay credit card payment solution'),
 		'display_title' => t('Pay with a dotpay'),
 		'description' => t('Dotpay payment solution'),
@@ -20,3 +20,31 @@ function commerce_dotpay_commerce_payment_method_info() {
 	);
 	return $payment_methods;
 }
+
+
+function commerce_dotpay_payment_settings_form($settings = NULL) {
+
+	$settings = (array) $settings + commerce_dotpay_paynment_default_settings();
+
+	$form = array();
+
+	$form['abc'] = array(
+		'#type' => 'textfield',
+		'#title' => t('title'),
+		'#description' => t('Your API Login ID is different from the username you use to login to your Authorize.Net account. Once you login, browse to your Account tab and click the <em>API Login ID and Transaction Key</em> link to find your API Login ID. If you are using a new Authorize.Net account, you may still need to generate an ID.'),
+		'#default_value' => $settings['abc'],
+		'#required' => TRUE,
+	);
+
+
+	return $form;
+}
+
+
+function commerce_dotpay_paynment_default_settings(){
+	return array(
+		'abc' => '',
+	);
+}
+
+
