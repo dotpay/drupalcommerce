@@ -1,0 +1,10 @@
+<?php
+
+
+function commerce_dotpay_help($path, $arg) {
+	switch ($path) {
+		case "admin/help/ah":
+			return '<p>' . t("Integrate dotpay payment method") . '</p>';
+			break;
+	}
+}
