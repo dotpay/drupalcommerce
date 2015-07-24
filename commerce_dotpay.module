@@ -1,5 +1,8 @@
 <?php
 
+DEFINE('DOTPAY_PAYMENT_TYPE', '0');
+DEFINE('DOTPAY_API_VERSION', 'dev');
+
 
 function commerce_dotpay_help($path, $arg) {
 	switch ($path) {
@@ -28,9 +31,13 @@ function commerce_dotpay_callback() {
 function commerce_dotpay_commerce_payment_method_info() {
 	$payment_methods = array();
 	$payment_methods['commerce_dotpay_payment'] = array(
+		'base' => 'commerce_dotpay_payment',
 		'title' => t('Dotpay credit card payment solution'),
 		'display_title' => t('Pay with a dotpay'),
 		'description' => t('Dotpay payment solution'),
+		'terminal' => FALSE,
+		'offsite' => TRUE,
+		'offsite_autoredirect' => false,
 		'active' => TRUE,
 	);
 	return $payment_methods;
@@ -75,8 +82,94 @@ function commerce_dotpay_paynment_default_settings(){
 	return array(
 		'identifier' => '',
 		'pid' => '',
-		'payment_url' => ''
+		'payment_url' => 'https://ssl.dotpay.pl/test_payment/'
 	);
 }
 
+function commerce_dotpay_payment_redirect_form($form, &$form_state, $order, $payment_method) {
+
+	if (empty($payment_method['settings']['identifier'])) {
+		drupal_set_message(t('Dotpay is not configured for use. Merchant id has not been specified.'), 'error');
+		return array();
+	}
+
+	if (empty($payment_method['settings']['pid'])) {
+		drupal_set_message(t('Dotpay is not configured for use. Merchant pid has not been specified.'), 'error');
+		return array();
+	}
+
+	$settings = array(
+		// Return to the previous page when payment is canceled
+		'cancel_return' => url('checkout/' . $order->order_id . '/payment/back/' . $order->data['payment_redirect_key'], array('absolute' => TRUE)),
+		// Return to the payment redirect page for processing successful payments
+		'return' => url('checkout/' . $order->order_id . '/payment/return/' . $order->data['payment_redirect_key'], array('absolute' => TRUE)),
+		// Url to get POST result of payment.
+		'merchant_url' => url('dotpay/callback', array('absolute' => TRUE)),
+		// Specify the current payment method instance ID in the notify_url
+		'payment_method' => $payment_method['instance_id'],
+	);
+
+	return commerce_dotpay_order_form($form, $form_state, $order, $payment_method['settings'] + $settings );
+}
+
+function commerce_dotpay_order_form($form, $form_state, $order, $payment_method){
+	$wrapper = entity_metadata_wrapper('commerce_order', $order);
+	$lang = commerce_dotpay_get_and_validateLanguage();
+
+	$form['#action'] = $payment_method['payment_url'];
+
+	$hidden_fields = array(
+		'id' => $payment_method['identifier'],
+		'amount' => $wrapper->commerce_order_total->amount->value(),
+		'currency' => $wrapper->commerce_order_total->currency_code->value(),
+		'control' => $order->order_id,
+		'description'  => t('Order @order_number at @store', array('@order_number' => $order->order_id, '@store' => variable_get('site_name', url('<front>', array('absolute' => TRUE))))),
+		'lang' =>$lang,
+		'URL' => $payment_method['return'],
+		'URLC' => $payment_method['merchant_url'],
+		'type' => DOTPAY_PAYMENT_TYPE,
+		'api_version' => DOTPAY_API_VERSION,
+	);
+
+
+
+	foreach ($hidden_fields as $name => $value) {
+		$form[$name] = array(
+			'#type' => 'textfield',
+			'#value' => $value,
+		);
+	}
+
+	$form['submit'] = array(
+		'#type' => 'submit',
+		'#value' => t('Redirect to Dotpay platform'),
+	);
+
+	return $form;
+}
+
+function commerce_dotpay_get_and_validateLanguage(){
+	global $language;
+	$allowedLanguages = commerce_dotpay_languages();
+
+	if (!array_key_exists($language->language, $allowedLanguages)){
+		return 'en';
+	}
+
+	return $language->language;
+};
+
+function commerce_dotpay_languages(){
+	return array(
+		'pl' => t('Polish'),
+		'en' => t('English'),
+		'de' => t('German'),
+		'it' => t('Italian'),
+		'fr' => t('French'),
+		'es' => t('Spanish'),
+		'cz' => t('Czech'),
+		'ru' => t('Russian'),
+		'bg' => t('Bulgarian')
+		);
+}
 
