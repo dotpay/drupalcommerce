@@ -98,6 +98,7 @@ function commerce_dotpay_payment_redirect_form($form, &$form_state, $order, $pay
 		return array();
 	}
 
+
 	$settings = array(
 		// Return to the previous page when payment is canceled
 		'cancel_return' => url('checkout/' . $order->order_id . '/payment/back/' . $order->data['payment_redirect_key'], array('absolute' => TRUE)),
@@ -105,8 +106,6 @@ function commerce_dotpay_payment_redirect_form($form, &$form_state, $order, $pay
 		'return' => url('checkout/' . $order->order_id . '/payment/return/' . $order->data['payment_redirect_key'], array('absolute' => TRUE)),
 		// Url to get POST result of payment.
 		'merchant_url' => url('dotpay/callback', array('absolute' => TRUE)),
-		// Specify the current payment method instance ID in the notify_url
-		'payment_method' => $payment_method['instance_id'],
 	);
 
 	return commerce_dotpay_order_form($form, $form_state, $order, $payment_method['settings'] + $settings );
@@ -115,6 +114,7 @@ function commerce_dotpay_payment_redirect_form($form, &$form_state, $order, $pay
 function commerce_dotpay_order_form($form, $form_state, $order, $payment_method){
 	$wrapper = entity_metadata_wrapper('commerce_order', $order);
 	$lang = commerce_dotpay_get_and_validateLanguage();
+
 
 	$form['#action'] = $payment_method['payment_url'];
 
@@ -129,6 +129,13 @@ function commerce_dotpay_order_form($form, $form_state, $order, $payment_method)
 		'URLC' => $payment_method['merchant_url'],
 		'type' => DOTPAY_PAYMENT_TYPE,
 		'api_version' => DOTPAY_API_VERSION,
+		// below additional optional parameters
+		'firstname' => $wrapper->commerce_customer_billing->commerce_customer_address->first_name->value(),
+		'lasttname' => $wrapper->commerce_customer_billing->commerce_customer_address->first_name->value(),
+		'email'	=> $order->mail,
+		'city'	=> $wrapper->commerce_customer_billing->commerce_customer_address->locality->value(),
+		'postcode' => $wrapper->commerce_customer_billing->commerce_customer_address->postal_code->value(),
+		'country' => $wrapper->commerce_customer_billing->commerce_customer_address->country->value(),
 	);
 
 
@@ -154,6 +161,7 @@ function commerce_dotpay_get_and_validateLanguage(){
 
 	if (!array_key_exists($language->language, $allowedLanguages)){
 		return 'en';
+
 	}
 
 	return $language->language;
