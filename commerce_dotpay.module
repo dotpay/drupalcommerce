@@ -24,51 +24,97 @@ function commerce_dotpay_menu() {
 }
 
 
-function commerce_dotpay_callback($abc) {
+function commerce_dotpay_callback($payment_method_name) {
 
-
-//		if(!isset($_POST['id']) ||
-//		   !isset($_POST['control']) ||
-//		   !isset($_POST['signature']) ||
-//		   !isset($_POST['operation_original_amount'])
-//		){
-//			echo 'Incomplete request from dotpay';
-//			return true;
-//		}
-//
-//		$order = commerce_order_load(10);
-//		$payment_method = commerce_payment_method_instance_load($order->data['payment_method']);
-//		$hash = commerce_dotpay_calculate_hash($payment_method['settings']['pid'], $_POST);
-//
-//		if($_POST['signature'] == $hash &&
-//		   $_POST['id'] == $payment_method['settings']['identifier']){
-//			echo 'Signature does not mach';
-//			return true;
-//		}
-//
-		if(!$_POST['operation_status'] == 'completed'){
-			commerce_dotpay_process_transaction();
-			echo 'OK';
+		if(!isset($_POST['id']) ||
+		   !isset($_POST['control']) ||
+		   !isset($_POST['signature']) ||
+		   !isset($_POST['operation_number']) ||
+		   !isset($_POST['operation_original_amount'])
+		){
+			echo 'Incomplete request from dotpay';
 			return true;
 		}
 
+		$order = commerce_order_load($_POST['control']);
+		$payment_method = commerce_payment_method_instance_load($order->data['payment_method']);
+		$hash = commerce_dotpay_calculate_hash($payment_method['settings']['pid'], $_POST);
 
 
-	error_log("DOTPAY-pid: ". print_r($payment_method['settings']['pid'], true) );
-	error_log("DOTPAY-hast: ". print_r($hash, true) );
+	$transactions = commerce_payment_transaction_load_multiple(array(), array('instance_id' => $payment_method_name, 'order_id' => $order->order_id));
+		$transaction = array_pop($transactions);
 
 
-	error_log("DOTPAY-POST: ". print_r($_POST, true) );
-	echo 'Error occure';
+
+		if(!$transaction){
+			echo 'Transaction not found';
+			return true;
+		}
+
+		$transaction->remote_id = $_POST['operation_number'];
+		$transaction->remote_status = $_POST['operation_status'];
+		$transaction->payload[REQUEST_TIME] = $_POST;
+		$transaction->currency_code = $_POST['operation_currency'];
+
+		if(!commerce_dotpay_price_validate($transaction, $order, $_POST['operation_original_amount'])){
+			$transaction->status = COMMERCE_PAYMENT_STATUS_FAILURE;
+			$transaction->message = t("Prices doesn't match");
+			commerce_payment_transaction_save($transaction);
+			echo 'Prices doesnt match';
+			return true;
+		}
+
+		if(!$_POST['id'] == $payment_method['settings']['identifier']){
+			$transaction->status = COMMERCE_PAYMENT_STATUS_FAILURE;
+			$transaction->message = t("Identifier does not mach");
+			commerce_payment_transaction_save($transaction);
+			echo 'Identifier does not mach';
+			return true;
+
+		}
+
+		if(!$_POST['signature'] == $hash){
+			$transaction->status = COMMERCE_PAYMENT_STATUS_FAILURE;
+			$transaction->message = t("Signature does not mach");
+			commerce_payment_transaction_save($transaction);
+			echo 'Signature does not mach';
+			return true;
+		}
+
+		switch($_POST['operation_status']){
+			case 'rejected':
+				$transaction->status = COMMERCE_PAYMENT_STATUS_FAILURE;
+				$transaction->message = t("Rejected payment");
+				echo 'Rejected payment';
+				break;
+			case 'completed':
+				$transaction->status = COMMERCE_PAYMENT_STATUS_SUCCESS;
+				$transaction->message = t("Success payment");
+				echo 'OK';
+				break;
+			default:
+				$transaction->status = COMMERCE_PAYMENT_STATUS_PENDING;
+				$transaction->message = t("Success payment");
+				echo 'Pending payment';
+				break;
+		}
+		commerce_payment_transaction_save($transaction);
 	return true;
 }
 
-
-function commerce_dotpay_process_transaction(){
-	var_dump(commerce_payment_transaction_load(2));
-	$order = commerce_order_load(10);
-
+function commerce_dotpay_price_validate($transaction, $order, $amount){
+	$wrapper = entity_metadata_wrapper('commerce_order', $order);
+	$orderAmount = $wrapper->commerce_order_total->amount->value();
+	$orderCurrency = $wrapper->commerce_order_total->currency_code->value();
+	$amountOrderDecimal = commerce_dotpay_price_amount($orderAmount, $orderCurrency);
+	$amountTransactionDecimal = commerce_dotpay_price_amount($transaction->amount, $transaction->currency_code);
+	if(($amountTransactionDecimal == $amountOrderDecimal) && ($amountOrderDecimal == $amount)){
+		return true;
+	}
+	return false;
 }
+
+
 
 function commerce_dotpay_calculate_hash($pid, $vars){
 	$string = $pid .
@@ -181,12 +227,18 @@ function commerce_dotpay_order_form($form, $form_state, $order, $payment_method)
 	$wrapper = entity_metadata_wrapper('commerce_order', $order);
 	$lang = commerce_dotpay_get_and_validateLanguage();
 
+	$amount = $wrapper->commerce_order_total->amount->value();
+	$currency = $wrapper->commerce_order_total->currency_code->value();
+	$amountDecimal = commerce_dotpay_price_amount($amount, $currency);
+
+	commerce_dotpay_create_payment_transaction($order, $payment_method, $amount, $currency);
+
 	$form['#action'] = $payment_method['settings']['payment_url'];
 
 	$data = array(
 		'id' => $payment_method['settings']['identifier'],
-		'amount' => $wrapper->commerce_order_total->amount->value(),
-		'currency' => $wrapper->commerce_order_total->currency_code->value(),
+		'amount' => $amountDecimal,
+		'currency' => $currency,
 		'control' => $order->order_id,
 		'description'  => t('Order @order_number at @store', array('@order_number' => $order->order_id, '@store' => variable_get('site_name', url('<front>', array('absolute' => TRUE))))),
 		'lang' =>$lang,
@@ -217,18 +269,28 @@ function commerce_dotpay_order_form($form, $form_state, $order, $payment_method)
 		'#value' => t('Redirect to Dotpay platform'),
 	);
 
-	commerce_dotpay_create_payment_transaction($data, $order, $payment_method);
+
 
 	return $form;
 }
 
-function commerce_dotpay_create_payment_transaction($data, $order,$payment_method){
+function commerce_dotpay_price_amount($amount, $currency_code) {
+	$rounded_amount = commerce_currency_round($amount, commerce_currency_load($currency_code));
+	return number_format(commerce_currency_amount_to_decimal($rounded_amount, $currency_code), 2, '.', '');
+}
+
+function commerce_dotpay_create_payment_transaction( $order,$payment_method, $amount, $currency){
+	$transactions = commerce_payment_transaction_load_multiple(array(), array('instance_id' => $payment_method['instance_id'], 'status' => COMMERCE_PAYMENT_STATUS_PENDING, 'order_id' => $order->order_id));
+	$transaction = array_pop($transactions);
+	if(!$transaction){
 	$transaction = commerce_payment_transaction_new($payment_method['method_id'], $order->order_id);
 	$transaction->instance_id = $payment_method['instance_id'];
 	$transaction->status = COMMERCE_PAYMENT_STATUS_PENDING;
-	$transaction->amount = $data['amount'];
-	$transaction->currency_code = $data['currency'];
+	$transaction->amount = $amount;
+	$transaction->currency_code = $currency;
 	commerce_payment_transaction_save($transaction);
+	}
+	return $transaction->transaction_id;
 }
 
 function commerce_dotpay_get_and_validateLanguage(){
