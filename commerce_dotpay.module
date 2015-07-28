@@ -15,7 +15,7 @@ function commerce_dotpay_help($path, $arg) {
 function commerce_dotpay_menu() {
 	$items['dotpay/callback/%commerce_payment_method_instance'] = array(
 		'page callback' => 'commerce_dotpay_callback',
-		'psge arguments' => array(1),
+		'page arguments' => array(2),
 		'access callback' => TRUE,
 		'type' => MENU_CALLBACK,
 	);
@@ -23,10 +23,9 @@ function commerce_dotpay_menu() {
 	return $items;
 }
 
+function commerce_dotpay_callback($payment_method) {
 
-function commerce_dotpay_callback($payment_method_name) {
-
-		if(!isset($_POST['id']) ||
+	if(!isset($_POST['id']) ||
 		   !isset($_POST['control']) ||
 		   !isset($_POST['signature']) ||
 		   !isset($_POST['operation_number']) ||
@@ -37,14 +36,11 @@ function commerce_dotpay_callback($payment_method_name) {
 		}
 
 		$order = commerce_order_load($_POST['control']);
-		$payment_method = commerce_payment_method_instance_load($order->data['payment_method']);
 		$hash = commerce_dotpay_calculate_hash($payment_method['settings']['pid'], $_POST);
 
 
-	$transactions = commerce_payment_transaction_load_multiple(array(), array('instance_id' => $payment_method_name, 'order_id' => $order->order_id));
+		$transactions = commerce_payment_transaction_load_multiple(array(), array('instance_id' => $payment_method['instance_id'], 'order_id' => $_POST['control']));
 		$transaction = array_pop($transactions);
-
-
 
 		if(!$transaction){
 			echo 'Transaction not found';
@@ -114,8 +110,6 @@ function commerce_dotpay_price_validate($transaction, $order, $amount){
 	return false;
 }
 
-
-
 function commerce_dotpay_calculate_hash($pid, $vars){
 	$string = $pid .
 		(isset($vars['id']) ? $vars['id'] : '').
@@ -155,7 +149,6 @@ function commerce_dotpay_commerce_payment_method_info() {
 	);
 	return $payment_methods;
 }
-
 
 function commerce_dotpay_payment_settings_form($settings = NULL) {
 
@@ -232,7 +225,6 @@ function commerce_dotpay_order_form($form, $form_state, $order, $payment_method)
 	$amountDecimal = commerce_dotpay_price_amount($amount, $currency);
 
 	commerce_dotpay_create_payment_transaction($order, $payment_method, $amount, $currency);
-
 	$form['#action'] = $payment_method['settings']['payment_url'];
 
 	$data = array(
@@ -290,6 +282,7 @@ function commerce_dotpay_create_payment_transaction( $order,$payment_method, $am
 	$transaction->currency_code = $currency;
 	commerce_payment_transaction_save($transaction);
 	}
+
 	return $transaction->transaction_id;
 }
 
