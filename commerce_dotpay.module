@@ -172,12 +172,13 @@ function commerce_dotpay_payment_settings_form($settings = NULL) {
 		'#required' => TRUE,
 	);
 
-	$form['payment_url'] = array(
-		'#type' => 'textfield',
-		'#title' => t('payment_url'),
-		'#description' => t('description payment_url'),
-		'#default_value' => $settings['payment_url'],
-		'#required' => TRUE,
+	$form['env'] = array(
+		'#type' => 'select',
+		'#title' => t('Dotpay test / production'),
+		'#options' => array(
+			'test' => t('test'),
+			'production' => t('production')
+		),
 	);
 
 
@@ -188,7 +189,6 @@ function commerce_dotpay_paynment_default_settings(){
 	return array(
 		'identifier' => '',
 		'pid' => '',
-		'payment_url' => 'https://ssl.dotpay.pl/test_payment/'
 	);
 }
 
@@ -231,7 +231,8 @@ function commerce_dotpay_order_form($form, $form_state, $order, $payment_method)
 	$amountDecimal = commerce_dotpay_price_amount($amount, $currency);
 
 	commerce_dotpay_create_payment_transaction($order, $payment_method, $amount, $currency);
-	$form['#action'] = $payment_method['settings']['payment_url'];
+
+	$form['#action'] = commerce_dotpay_get_url($payment_method['settings']['env']);
 
 	$data = array(
 		'id' => $payment_method['settings']['identifier'],
@@ -246,7 +247,7 @@ function commerce_dotpay_order_form($form, $form_state, $order, $payment_method)
 		'api_version' => DOTPAY_API_VERSION,
 		// below additional optional parameters
 		'firstname' => $wrapper->commerce_customer_billing->commerce_customer_address->first_name->value(),
-		'lasttname' => $wrapper->commerce_customer_billing->commerce_customer_address->first_name->value(),
+		'lastname' => $wrapper->commerce_customer_billing->commerce_customer_address->first_name->value(),
 		'email'	=> $order->mail,
 		'city'	=> $wrapper->commerce_customer_billing->commerce_customer_address->locality->value(),
 		'postcode' => $wrapper->commerce_customer_billing->commerce_customer_address->postal_code->value(),
@@ -324,5 +325,14 @@ function commerce_dotpay_languages(){
 function commerce_dotpay_currencies(){
 	return array( "EUR", "USD", "GBP", "JPY","CZK", "SEK", "PLN" );
 
+}
+
+function commerce_dotpay_get_url($env){
+	switch ($env){
+		case 'test':
+			return 'https://ssl.dotpay.pl/test_payment/';
+		case 'production':
+			return 'https://ssl.dotpay.pl/';
+	}
 }
 
