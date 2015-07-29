@@ -139,7 +139,7 @@ function commerce_dotpay_commerce_payment_method_info() {
 	$payment_methods = array();
 	$payment_methods['commerce_dotpay_payment'] = array(
 		'base' => 'commerce_dotpay_payment',
-		'title' => t('Dotpay credit card payment solution'),
+		'title' => t('Dotpay payment solution'),
 		'display_title' => t('Pay with a dotpay'),
 		'description' => t('Dotpay payment solution'),
 		'terminal' => FALSE,
@@ -222,6 +222,12 @@ function commerce_dotpay_order_form($form, $form_state, $order, $payment_method)
 
 	$amount = $wrapper->commerce_order_total->amount->value();
 	$currency = $wrapper->commerce_order_total->currency_code->value();
+
+	if (!commerce_dotpay_is_allowed_currency($currency)) {
+		drupal_set_message(t('Dotpay is not configured for this currency.'), 'error');
+		return array();
+	}
+
 	$amountDecimal = commerce_dotpay_price_amount($amount, $currency);
 
 	commerce_dotpay_create_payment_transaction($order, $payment_method, $amount, $currency);
@@ -260,10 +266,13 @@ function commerce_dotpay_order_form($form, $form_state, $order, $payment_method)
 		'#type' => 'submit',
 		'#value' => t('Redirect to Dotpay platform'),
 	);
-
-
-
 	return $form;
+}
+
+function commerce_dotpay_is_allowed_currency($currency){
+	if(in_array( $currency, commerce_dotpay_currencies() )){
+		return true;
+	}
 }
 
 function commerce_dotpay_price_amount($amount, $currency_code) {
@@ -310,5 +319,10 @@ function commerce_dotpay_languages(){
 		'ru' => t('Russian'),
 		'bg' => t('Bulgarian')
 		);
+}
+
+function commerce_dotpay_currencies(){
+	return array( "EUR", "USD", "GBP", "JPY","CZK", "SEK", "PLN" );
+
 }
 
