@@ -25,7 +25,10 @@ function commerce_dotpay_menu() {
 
 function commerce_dotpay_callback($payment_method) {
 
-	if(!isset($_POST['id']) ||
+	if(!commerce_dotpay_is_trusted_request()){
+		return true;
+	}
+	if(	   !isset($_POST['id']) ||
 		   !isset($_POST['control']) ||
 		   !isset($_POST['signature']) ||
 		   !isset($_POST['operation_number']) ||
@@ -334,5 +337,17 @@ function commerce_dotpay_get_url($env){
 		case 'production':
 			return 'https://ssl.dotpay.pl/';
 	}
+}
+
+function commerce_dotpay_is_trusted_request(){
+	if($_SERVER['REQUEST_METHOD'] != 'POST'){
+		watchdog('commerce_dotpay', 'bad method - only POST method is allowed');
+		return false;
+	}
+	if($_SERVER['REMOTE_ADDR'] != '195.150.9.37'){
+		watchdog('commerce_dotpay', 'untrusted ip');
+		return false;
+	}
+	return true;
 }
 
