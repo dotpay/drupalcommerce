@@ -13,14 +13,25 @@ function commerce_dotpay_form_commerce_checkout_form_alter(&$form, &$form_state)
 			// If we find PayPal WPS...
 			if ($method_id == 'commerce_dotpay_payment') {
 				// Prepare the replacement radio button text with icons.
-				$value ='here we can ';
+				$img = commerce_dotpay_icon();
+
+				$value =$img.$value;
 				break;
 			}
 		}
 	}
 }
 
-
+function commerce_dotpay_icon(){
+	$iconParameters = array(
+		'path' => drupal_get_path('module', 'commerce_dotpay') . '/images/dotpay.jpeg',
+		'title' => 'dotpay icon',
+		'alt' => 'dotpay icon',
+		'attributes' => array(
+		),
+	);
+	return theme('image', $iconParameters);
+}
 
 function commerce_dotpay_help($path, $arg) {
 	switch ($path) {
