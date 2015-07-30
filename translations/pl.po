@@ -25,7 +25,7 @@ msgstr "Dotpay płatności"
 
 #: commerce_dotpay.module:17
 msgid "Pay with a dotpay"
-msgstr "Zapła przy użyciu dotpay"
+msgstr "Zapłać przy użyciu dotpay"
 
 #: commerce_dotpay.module:51
 msgid "identifier"

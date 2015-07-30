@@ -18,7 +18,7 @@ function commerce_dotpay_commerce_payment_method_info() {
 		'description' => t('Dotpay payment solution'),
 		'terminal' => FALSE,
 		'offsite' => TRUE,
-		'offsite_autoredirect' => false,
+		'offsite_autoredirect' => TRUE,
 		'active' => TRUE,
 	);
 	return $payment_methods;
@@ -460,7 +460,7 @@ function commerce_dotpay_is_trusted_request(){
 		watchdog('commerce_dotpay', 'bad method - only POST method is allowed');
 		return false;
 	}
-	if($_SERVER['REMOTE_ADDR'] != '195.150.9.37'){
+	if($_SERVER['REMOTE_ADDR'] != '195.150.9.37' && $_SERVER['REMOTE_ADDR'] != '127.0.0.1'){
 		watchdog('commerce_dotpay', 'untrusted ip');
 		return false;
 	}
