@@ -1,0 +1,161 @@
+# $Id$
+#
+# Polish translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  commerce_dotpay.module: n/a
+#  commerce_dotpay.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-07-30 11:31+0200\n"
+"PO-Revision-Date: 2015-07-30 11:31+0200\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Polish <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+#: commerce_dotpay.module:16;18
+msgid "Dotpay payment solution"
+msgstr "Dotpay płatności"
+
+#: commerce_dotpay.module:17
+msgid "Pay with a dotpay"
+msgstr "Zapła przy użyciu dotpay"
+
+#: commerce_dotpay.module:51
+msgid "identifier"
+msgstr "Id"
+
+#: commerce_dotpay.module:52
+msgid "description identifier"
+msgstr "Id z panelu dotpay"
+
+#: commerce_dotpay.module:59
+msgid "pin"
+msgstr "pin"
+
+#: commerce_dotpay.module:60
+msgid "description pin"
+msgstr "Pin z panelu dotpay"
+
+#: commerce_dotpay.module:67
+msgid "Dotpay test / production"
+msgstr "Dotpay konto testowe / konto produkcyjne"
+
+#: commerce_dotpay.module:69
+msgid "test"
+msgstr "test"
+
+#: commerce_dotpay.module:70
+msgid "production"
+msgstr "produkcja"
+
+#: commerce_dotpay.module:124
+msgid "Integrate dotpay payment method"
+msgstr "Integracja płatności dotpay"
+
+#: commerce_dotpay.module:190
+msgid "Prices doesn't match"
+msgstr "Ceny nie pasują"
+
+#: commerce_dotpay.module:198
+msgid "Identifier does not mach"
+msgstr "Twój identyfikator jest nieprawidłowy"
+
+#: commerce_dotpay.module:207
+msgid "Signature does not mach"
+msgstr "Sygnatury nie pasują"
+
+#: commerce_dotpay.module:216
+msgid "Rejected payment"
+msgstr "Płatność przerwana"
+
+#: commerce_dotpay.module:221;226
+msgid "Success payment"
+msgstr "Płatność opłacona"
+
+#: commerce_dotpay.module:285
+msgid "Dotpay is not configured for use. Merchant id has not been specified."
+msgstr "Dotpay nie został skonfigurowany poprawnie, wprowadź ID"
+
+#: commerce_dotpay.module:290
+msgid "Dotpay is not configured for use. Merchant pin has not been specified."
+msgstr "Dotpay nie został skonfigurowany poprawnie, wprowadź PIN"
+
+#: commerce_dotpay.module:317
+msgid "Dotpay is not configured for this currency."
+msgstr "dotpay nie obsługuje wybranej waluty"
+
+#: commerce_dotpay.module:332
+msgid "Order @order_number at @store"
+msgstr "Zamówienie nr @order_number w @store"
+
+#: commerce_dotpay.module:358
+msgid "Redirect to Dotpay platform"
+msgstr "Przekierowanie do dotpay"
+
+#: commerce_dotpay.module:422
+msgid "Polish"
+msgstr "Polski"
+
+#: commerce_dotpay.module:423
+msgid "English"
+msgstr "Angielski"
+
+#: commerce_dotpay.module:424
+msgid "German"
+msgstr "Niemiecki"
+
+#: commerce_dotpay.module:425
+msgid "Italian"
+msgstr "Włoski"
+
+#: commerce_dotpay.module:426
+msgid "French"
+msgstr "Francuski"
+
+#: commerce_dotpay.module:427
+msgid "Spanish"
+msgstr "Hiszpańki"
+
+#: commerce_dotpay.module:428
+msgid "Czech"
+msgstr "Czeski"
+
+#: commerce_dotpay.module:429
+msgid "Russian"
+msgstr "Rosyjski"
+
+#: commerce_dotpay.module:430
+msgid "Bulgarian"
+msgstr "Bułgarski"
+
+#: commerce_dotpay.module:460;464
+msgid "commerce_dotpay"
+msgstr "commerce_dotpay"
+
+#: commerce_dotpay.module:460
+msgid "bad method - only POST method is allowed"
+msgstr "Tylko metoda typu $_POST jest dozwolona"
+
+#: commerce_dotpay.module:464
+msgid "untrusted ip"
+msgstr "Ip z niezaufanego źródła"
+
+#: commerce_dotpay.info:0
+msgid "Commerce Dotpay"
+msgstr "Dotpay"
+
+#: commerce_dotpay.info:0
+msgid "Implements dotpay payment services for use with Drupal Commerce."
+msgstr "Implementacja płatności dotpAY"
+
+#: commerce_dotpay.info:0
+msgid "Commerce (payment)"
+msgstr "Commerce (payment)"
+
