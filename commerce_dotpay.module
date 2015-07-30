@@ -3,6 +3,83 @@
 DEFINE('DOTPAY_PAYMENT_TYPE', '0');
 DEFINE('DOTPAY_API_VERSION', 'dev');
 
+/**
+ * Implements hook_commerce_payment_method_info().
+ *
+ *  There are base information about this module included autoredirect after
+ *	checkout complete.
+ */
+function commerce_dotpay_commerce_payment_method_info() {
+	$payment_methods = array();
+	$payment_methods['commerce_dotpay_payment'] = array(
+		'base' => 'commerce_dotpay_payment',
+		'title' => t('Dotpay payment solution'),
+		'display_title' => t('Pay with a dotpay'),
+		'description' => t('Dotpay payment solution'),
+		'terminal' => FALSE,
+		'offsite' => TRUE,
+		'offsite_autoredirect' => false,
+		'active' => TRUE,
+	);
+	return $payment_methods;
+}
+
+/**
+ * Returns the default settings for the dotpay payment method.
+ */
+function commerce_dotpay_paynment_default_settings(){
+	return array(
+		'identifier' => '',
+		'pin' => '',
+	);
+}
+
+/**
+ * Payment method callback: settings form.
+ *
+ * This method define optional parameters and it is invoked when user configure
+ * dotpay payment method
+ */
+function commerce_dotpay_payment_settings_form($settings = NULL) {
+
+	$settings = (array) $settings + commerce_dotpay_paynment_default_settings();
+
+	$form = array();
+
+	$form['identifier'] = array(
+		'#type' => 'textfield',
+		'#title' => t('identifier'),
+		'#description' => t('description identifier'),
+		'#default_value' => $settings['identifier'],
+		'#required' => TRUE,
+	);
+
+	$form['pin'] = array(
+		'#type' => 'textfield',
+		'#title' => t('pin'),
+		'#description' => t('description pin'),
+		'#default_value' => $settings['pin'],
+		'#required' => TRUE,
+	);
+
+	$form['env'] = array(
+		'#type' => 'select',
+		'#title' => t('Dotpay test / production'),
+		'#options' => array(
+			'test' => t('test'),
+			'production' => t('production')
+		),
+	);
+
+	return $form;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * It is invoked when fron form of payment method is rendered. This method add icon img
+ * inside label of radi button
+ */
 function commerce_dotpay_form_commerce_checkout_form_alter(&$form, &$form_state) {
 	// If this checkout form contains the payment method radios...
 	if (!empty($form['commerce_payment']['payment_method']['#options'])) {
@@ -22,6 +99,9 @@ function commerce_dotpay_form_commerce_checkout_form_alter(&$form, &$form_state)
 	}
 }
 
+/**
+ *  Return html <img> tag with correct parameters lik 'src', alt , etc.
+ */
 function commerce_dotpay_icon(){
 	$iconParameters = array(
 		'path' => drupal_get_path('module', 'commerce_dotpay') . '/images/dotpay.jpeg',
@@ -33,6 +113,11 @@ function commerce_dotpay_icon(){
 	return theme('image', $iconParameters);
 }
 
+/**
+ * Implements hook_help().
+ *
+ *  It add special link with little description like above
+ */
 function commerce_dotpay_help($path, $arg) {
 	switch ($path) {
 		case "admin/help/ah":
@@ -41,6 +126,11 @@ function commerce_dotpay_help($path, $arg) {
 	}
 }
 
+/**
+ * Implements hook_menu().
+ *
+ * Type MENU_CALLBACK add route  later use to recive callback from www.dotpay.com
+ */
 function commerce_dotpay_menu() {
 	$items['dotpay/callback/%commerce_payment_method_instance'] = array(
 		'page callback' => 'commerce_dotpay_callback',
@@ -52,6 +142,17 @@ function commerce_dotpay_menu() {
 	return $items;
 }
 
+/**
+ *  Process notification from www.dotpay.com
+ *
+ *  1. check correct ip and request method
+ *  2. check Is request include all required data
+ *  3. calculate hash based on $_POST parameters and pin
+ *  4. Load last transaction related to order_id recived from dotpay
+ *  5. Update transaction parameters based on parameters from dotpay
+ *  6. Validate price identifier and signature  if validate false then status is failture
+ *  7. Validate status from dotpay and set suitable status of transaction
+ */
 function commerce_dotpay_callback($payment_method) {
 
 	if(!commerce_dotpay_is_trusted_request()){
@@ -130,6 +231,10 @@ function commerce_dotpay_callback($payment_method) {
 	return true;
 }
 
+/**
+ * Validate price compared transaction, order, and value from dotpay
+ * Every price is transform to dotpay price fromat before comparing.
+ */
 function commerce_dotpay_price_validate($transaction, $order, $amount){
 	$wrapper = entity_metadata_wrapper('commerce_order', $order);
 	$orderAmount = $wrapper->commerce_order_total->amount->value();
@@ -142,6 +247,9 @@ function commerce_dotpay_price_validate($transaction, $order, $amount){
 	return false;
 }
 
+/**
+ * Calculate signature based on $_POST
+ */
 function commerce_dotpay_calculate_hash($pin, $vars){
 	$string = $pin .
 		(isset($vars['id']) ? $vars['id'] : '').
@@ -167,63 +275,10 @@ function commerce_dotpay_calculate_hash($pin, $vars){
 	return hash('sha256', $string);
 }
 
-function commerce_dotpay_commerce_payment_method_info() {
-	$payment_methods = array();
-	$payment_methods['commerce_dotpay_payment'] = array(
-		'base' => 'commerce_dotpay_payment',
-		'title' => t('Dotpay payment solution'),
-		'display_title' => t('Pay with a dotpay'),
-		'description' => t('Dotpay payment solution'),
-		'terminal' => FALSE,
-		'offsite' => TRUE,
-		'offsite_autoredirect' => false,
-		'active' => TRUE,
-	);
-	return $payment_methods;
-}
-
-function commerce_dotpay_payment_settings_form($settings = NULL) {
-
-	$settings = (array) $settings + commerce_dotpay_paynment_default_settings();
-
-	$form = array();
-
-	$form['identifier'] = array(
-		'#type' => 'textfield',
-		'#title' => t('identifier'),
-		'#description' => t('description identifier'),
-		'#default_value' => $settings['identifier'],
-		'#required' => TRUE,
-	);
-
-	$form['pin'] = array(
-		'#type' => 'textfield',
-		'#title' => t('pin'),
-		'#description' => t('description pin'),
-		'#default_value' => $settings['pin'],
-		'#required' => TRUE,
-	);
-
-	$form['env'] = array(
-		'#type' => 'select',
-		'#title' => t('Dotpay test / production'),
-		'#options' => array(
-			'test' => t('test'),
-			'production' => t('production')
-		),
-	);
-
-
-	return $form;
-}
-
-function commerce_dotpay_paynment_default_settings(){
-	return array(
-		'identifier' => '',
-		'pin' => '',
-	);
-}
-
+/**
+ * Configure form before it is send to dotpay.com
+ *  Add base validation and settings
+ */
 function commerce_dotpay_payment_redirect_form($form, &$form_state, $order, $payment_method) {
 
 	if (empty($payment_method['settings']['identifier'])) {
@@ -247,7 +302,10 @@ function commerce_dotpay_payment_redirect_form($form, &$form_state, $order, $pay
 
 	return commerce_dotpay_order_form($form, $form_state, $order, $payment_method + $settings );
 }
-
+/**
+ * Configure form before it is send to dotpay.com
+ *  Prepare form fields
+ */
 function commerce_dotpay_order_form($form, $form_state, $order, $payment_method){
 	$wrapper = entity_metadata_wrapper('commerce_order', $order);
 	$lang = commerce_dotpay_get_and_validateLanguage();
@@ -302,17 +360,29 @@ function commerce_dotpay_order_form($form, $form_state, $order, $payment_method)
 	return $form;
 }
 
+/**
+ * Validate if currency is availaible in dotpay
+ */
 function commerce_dotpay_is_allowed_currency($currency){
 	if(in_array( $currency, commerce_dotpay_currencies() )){
 		return true;
 	}
 }
 
+/**
+ * Convert price to price accepted by dotpay
+ */
 function commerce_dotpay_price_amount($amount, $currency_code) {
 	$rounded_amount = commerce_currency_round($amount, commerce_currency_load($currency_code));
 	return number_format(commerce_currency_amount_to_decimal($rounded_amount, $currency_code), 2, '.', '');
 }
 
+/**
+ * Create payment transaction
+ *
+ * New transaction is created only if order has no transaction before,
+ * If order has transaction it return this transaction
+ */
 function commerce_dotpay_create_payment_transaction( $order,$payment_method, $amount, $currency){
 	$transactions = commerce_payment_transaction_load_multiple(array(), array('instance_id' => $payment_method['instance_id'], 'status' => COMMERCE_PAYMENT_STATUS_PENDING, 'order_id' => $order->order_id));
 	$transaction = array_pop($transactions);
@@ -328,18 +398,25 @@ function commerce_dotpay_create_payment_transaction( $order,$payment_method, $am
 	return $transaction->transaction_id;
 }
 
+/**
+ * Validate language of drupal commerce
+ *
+ * If language is allowed in dotpay it return ISO Name of language, otherwise
+ * it retrun 'en'
+ */
 function commerce_dotpay_get_and_validateLanguage(){
 	global $language;
 	$allowedLanguages = commerce_dotpay_languages();
 
 	if (!array_key_exists($language->language, $allowedLanguages)){
 		return 'en';
-
 	}
-
 	return $language->language;
 };
 
+/**
+ * Retrun allowed languages in dotpay
+ */
 function commerce_dotpay_languages(){
 	return array(
 		'pl' => t('Polish'),
@@ -353,12 +430,17 @@ function commerce_dotpay_languages(){
 		'bg' => t('Bulgarian')
 		);
 }
-
+/**
+ * Retrun allowed currencies in dotpay
+ */
 function commerce_dotpay_currencies(){
 	return array( "EUR", "USD", "GBP", "JPY","CZK", "SEK", "PLN" );
 
 }
 
+/**
+ * Retrun url to dotpat, based on payment configuration
+ */
 function commerce_dotpay_get_url($env){
 	switch ($env){
 		case 'test':
@@ -368,6 +450,11 @@ function commerce_dotpay_get_url($env){
 	}
 }
 
+/**
+ * Validate request from dotpay
+ *
+ * Check Ip and check if request is $_POST
+ */
 function commerce_dotpay_is_trusted_request(){
 	if($_SERVER['REQUEST_METHOD'] != 'POST'){
 		watchdog('commerce_dotpay', 'bad method - only POST method is allowed');
