@@ -3,6 +3,24 @@
 DEFINE('DOTPAY_PAYMENT_TYPE', '0');
 DEFINE('DOTPAY_API_VERSION', 'dev');
 
+function commerce_dotpay_form_commerce_checkout_form_alter(&$form, &$form_state) {
+	// If this checkout form contains the payment method radios...
+	if (!empty($form['commerce_payment']['payment_method']['#options'])) {
+		// Loop over its options array looking for a PayPal WPS option.
+		foreach ($form['commerce_payment']['payment_method']['#options'] as $key => &$value) {
+			list($method_id, $rule_name) = explode('|', $key);
+
+			// If we find PayPal WPS...
+			if ($method_id == 'commerce_dotpay_payment') {
+				// Prepare the replacement radio button text with icons.
+				$value ='here we can ';
+				break;
+			}
+		}
+	}
+}
+
+
 
 function commerce_dotpay_help($path, $arg) {
 	switch ($path) {
