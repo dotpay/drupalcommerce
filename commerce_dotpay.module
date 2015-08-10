@@ -348,7 +348,7 @@ function commerce_dotpay_order_form($form, $form_state, $order, $payment_method)
 
 	foreach ($data as $name => $value) {
 		$form[$name] = array(
-			'#type' => 'textfield',
+			'#type' => 'hidden',
 			'#value' => $value,
 		);
 	}
