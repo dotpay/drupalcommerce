@@ -1,9 +1,9 @@
-DrupalCommerce Dotpay payment module
+Drupal Commerce Dotpay payment module
 =====================
 
 *English version below*
 
-####Wtyczka dla DrupalCommerce dodająca bramkę płatności Dotpay####
+####Wtyczka dla Drupal Commerce dodająca bramkę płatności Dotpay####
 
 ### Instrukcja: ###
 1. Pobierz wtyczkę dotpay.zip (https://github.com/dotpay/drupalcommerce/releases/latest)
@@ -13,7 +13,7 @@ DrupalCommerce Dotpay payment module
 
 ---------------------------------------
 
-####DrupalCommerce plugin adding Dotpay payment gateway####
+####Drupal Commerce plugin adding Dotpay payment gateway####
 
 ### Instructions: ###
 1. Download the plugin dotpay.zip (https://github.com/dotpay/drupalcommerce/releases/latest)
