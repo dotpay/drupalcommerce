@@ -1,7 +1,7 @@
 # $Id$
 #
 # Polish translation of Drupal (general)
-# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Copyright 2015 Dotpay SA <tech@dotpay.pl>
 # Generated from files:
 #  commerce_dotpay.module: n/a
 #  commerce_dotpay.info: n/a
@@ -24,8 +24,8 @@ msgid "Dotpay payment solution"
 msgstr "Dotpay płatności"
 
 #: commerce_dotpay.module:17
-msgid "Pay with a dotpay"
-msgstr "Zapłać przy użyciu dotpay"
+msgid "Pay with a Dotpay"
+msgstr "Zapłać przy użyciu Dotpay"
 
 #: commerce_dotpay.module:51
 msgid "identifier"
@@ -33,7 +33,7 @@ msgstr "Id"
 
 #: commerce_dotpay.module:52
 msgid "description identifier"
-msgstr "Id z panelu dotpay"
+msgstr "Id z panelu Dotpay"
 
 #: commerce_dotpay.module:59
 msgid "pin"
@@ -41,7 +41,7 @@ msgstr "pin"
 
 #: commerce_dotpay.module:60
 msgid "description pin"
-msgstr "Pin z panelu dotpay"
+msgstr "Pin z panelu Dotpay"
 
 #: commerce_dotpay.module:67
 msgid "Dotpay test / production"
@@ -57,7 +57,7 @@ msgstr "produkcja"
 
 #: commerce_dotpay.module:124
 msgid "Integrate dotpay payment method"
-msgstr "Integracja płatności dotpay"
+msgstr "Integracja płatności Dotpay"
 
 #: commerce_dotpay.module:190
 msgid "Prices doesn't match"
@@ -89,7 +89,7 @@ msgstr "Dotpay nie został skonfigurowany poprawnie, wprowadź PIN"
 
 #: commerce_dotpay.module:317
 msgid "Dotpay is not configured for this currency."
-msgstr "dotpay nie obsługuje wybranej waluty"
+msgstr "Dotpay nie obsługuje wybranej waluty"
 
 #: commerce_dotpay.module:332
 msgid "Order @order_number at @store"
@@ -97,7 +97,7 @@ msgstr "Zamówienie nr @order_number w @store"
 
 #: commerce_dotpay.module:358
 msgid "Redirect to Dotpay platform"
-msgstr "Przekierowanie do dotpay"
+msgstr "Przekierowanie do Dotpay"
 
 #: commerce_dotpay.module:422
 msgid "Polish"
@@ -152,8 +152,8 @@ msgid "Commerce Dotpay"
 msgstr "Dotpay"
 
 #: commerce_dotpay.info:0
-msgid "Implements dotpay payment services for use with Drupal Commerce."
-msgstr "Implementacja płatności dotpAY"
+msgid "Implements Dotpay payment services for use with Drupal Commerce."
+msgstr "Implementacja płatności Dotpay"
 
 #: commerce_dotpay.info:0
 msgid "Commerce (payment)"

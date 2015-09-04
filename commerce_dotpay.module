@@ -1,4 +1,13 @@
 <?php
+/**
+ * @package Dotpay Payment Plugin module for Drupal Commerce
+ * @version $1.0.1: commerce_dotpay.module.php 2015-08-27 for Dotpay 2.0
+ * @author Dotpay SA  < tech@dotpay.pl >
+ * @copyright (C) 2015 - Dotpay SA
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * tested on:Drupal core 7.39 + Commerce Kickstart 7.x-2.28
+**/
+
 
 DEFINE('DOTPAY_PAYMENT_TYPE', '0');
 DEFINE('DOTPAY_API_VERSION', 'dev');
@@ -104,7 +113,7 @@ function commerce_dotpay_form_commerce_checkout_form_alter(&$form, &$form_state)
  */
 function commerce_dotpay_icon(){
 	$iconParameters = array(
-		'path' => drupal_get_path('module', 'commerce_dotpay') . '/images/dotpay.jpeg',
+		'path' => drupal_get_path('module', 'commerce_dotpay') . '/images/dotpay.png',
 		'title' => 'dotpay icon',
 		'alt' => 'dotpay icon',
 		'attributes' => array(
@@ -214,7 +223,7 @@ function commerce_dotpay_callback($payment_method) {
 			case 'rejected':
 				$transaction->status = COMMERCE_PAYMENT_STATUS_FAILURE;
 				$transaction->message = t("Rejected payment");
-				echo 'Rejected payment';
+				echo 'OK';
 				break;
 			case 'completed':
 				$transaction->status = COMMERCE_PAYMENT_STATUS_SUCCESS;
@@ -348,6 +357,7 @@ function commerce_dotpay_order_form($form, $form_state, $order, $payment_method)
 
 	foreach ($data as $name => $value) {
 		$form[$name] = array(
+			//'#type' => 'textfield',
 			'#type' => 'hidden',
 			'#value' => $value,
 		);
@@ -402,7 +412,7 @@ function commerce_dotpay_create_payment_transaction( $order,$payment_method, $am
  * Validate language of drupal commerce
  *
  * If language is allowed in dotpay it return ISO Name of language, otherwise
- * it retrun 'en'
+ * it return 'en'
  */
 function commerce_dotpay_get_and_validateLanguage(){
 	global $language;
