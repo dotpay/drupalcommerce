@@ -1,161 +1,633 @@
-# $Id$
-#
-# Polish translation of Drupal (general)
-# Copyright 2015 Dotpay SA <tech@dotpay.pl>
-# Generated from files:
-#  commerce_dotpay.module: n/a
-#  commerce_dotpay.info: n/a
-#
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-07-30 11:31+0200\n"
-"PO-Revision-Date: 2015-07-30 11:31+0200\n"
-"Last-Translator: NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Polish <EMAIL@ADDRESS>\n"
+"Project-Id-Version: Drupal Gateway Dotpay\n"
+"POT-Creation-Date: 2016-09-28 13:24+0100\n"
+"PO-Revision-Date: 2016-09-28 13:25+0100\n"
+"Last-Translator: \n"
+"Language-Team: Dotpay <tech@dotpay.pl>\n"
+"Language: pl_PL\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: t\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPathExcluded-0: web/js/payment_widget.js\n"
+"X-Poedit-SearchPath-0: .\n"
 
-#: commerce_dotpay.module:16;18
-msgid "Dotpay payment solution"
-msgstr "Dotpay płatności"
+#: commerce_dotpay_main.php:103
+msgid "Payment"
+msgstr "Płatność"
 
-#: commerce_dotpay.module:17
-msgid "Pay with a Dotpay"
-msgstr "Zapłać przy użyciu Dotpay"
+#: commerce_dotpay_main.php:110 commerce_dotpay_main.php:117
+#: commerce_dotpay_main.php:136
+msgid "Waiting"
+msgstr "Oczekiwanie"
 
-#: commerce_dotpay.module:51
-msgid "identifier"
-msgstr "Id"
+#: commerce_dotpay_main.php:123
+msgid "My saved cards"
+msgstr "Moje zapisane karty"
 
-#: commerce_dotpay.module:52
-msgid "description identifier"
-msgstr "Id z panelu Dotpay"
+#: commerce_dotpay_main.php:179
+msgid "Channel payment is incorrect. Please try to place your order again."
+msgstr ""
+"Kanał płatności jest nieprawidłowy. Spróbuj ponownie złożyć zamówienie."
 
-#: commerce_dotpay.module:59
-msgid "pin"
-msgstr "pin"
+#: commerce_dotpay_main.php:218
+msgid "Manage your Credit Cards (for One Click payments)"
+msgstr "Zarządzaj swoimi kartami płatniczymi (dla płatności One Click)"
 
-#: commerce_dotpay.module:60
-msgid "description pin"
-msgstr "Pin z panelu Dotpay"
+#: commerce_dotpay_main.php:246
+msgid "Instruction of your payment"
+msgstr "Instrukcja płatności"
 
-#: commerce_dotpay.module:67
-msgid "Dotpay test / production"
-msgstr "Dotpay konto testowe / konto produkcyjne"
+#: include/Back.php:55
+msgid "Exceeded expiration date of the generated payment link."
+msgstr "Błąd! Przekroczona data ważności wygenerowanego linku płatności."
 
-#: commerce_dotpay.module:69
-msgid "test"
-msgstr "test"
+#: include/Back.php:58
+msgid "Selected payment channel is unknown."
+msgstr "Błąd! Wybrany kanał płatności jest nieznany."
 
-#: commerce_dotpay.module:70
-msgid "production"
-msgstr "produkcja"
+#: include/Back.php:61
+msgid "Selected channel payment is desabled."
+msgstr "Błąd! Wybrany kanał płatności jest wyłączony."
 
-#: commerce_dotpay.module:124
-msgid "Integrate dotpay payment method"
-msgstr "Integracja płatności Dotpay"
+#: include/Back.php:64
+msgid "Account is disabled."
+msgstr "Błąd! Konto sprzedawcy jest zablokowane."
 
-#: commerce_dotpay.module:190
-msgid "Prices doesn't match"
-msgstr "Ceny nie pasują"
+#: include/Back.php:67
+msgid "Seller account is inactive."
+msgstr "Błąd! Konto sprzedawcy jest nieaktywne."
 
-#: commerce_dotpay.module:198
-msgid "Identifier does not mach"
-msgstr "Twój identyfikator jest nieprawidłowy"
+#: include/Back.php:70
+msgid "Amount is too low."
+msgstr "Błąd! Kwota jest za niska."
 
-#: commerce_dotpay.module:207
-msgid "Signature does not mach"
-msgstr "Sygnatury nie pasują"
+#: include/Back.php:73
+msgid "Amount is too high."
+msgstr "Błąd! Kwota jest za wysoka."
 
-#: commerce_dotpay.module:216
+#: include/Back.php:76
+msgid "Data format is bad."
+msgstr "'Błędny format daty !"
+
+#: include/Back.php:79
+msgid "Request has been modified during transmission."
+msgstr ""
+"Błąd! Podczas transmisji danych do Dotpay nastąpiła manipulacja danymi."
+
+#: include/Back.php:82
+msgid "There were not given all request parameters."
+msgstr "Nie dostarczono wszystkich wymaganych parametrów."
+
+#: include/Back.php:85
+msgid ""
+"There was an unidentified error. Please contact to your seller and give him "
+"the order number."
+msgstr ""
+"Wystąpił nieoczekiwany błąd. Skontaktuj się proszę ze sprzedawcą i podaj mu "
+"numer zamówienia."
+
+#: include/Back.php:88
+msgid ""
+"Payment has failed. Please repeat it. If an error will be again, please "
+"contact to dealer."
+msgstr ""
+"Płatność się nie powiodła. Spróbuj ponownie, a jeśli błąd będzie nadal "
+"występował, skontaktuj się ze sprzedawcą."
+
+#: include/Confirm.php:236
 msgid "Rejected payment"
-msgstr "Płatność przerwana"
+msgstr "Płatność została odrzucona"
 
-#: commerce_dotpay.module:221;226
+#: include/Confirm.php:240
 msgid "Success payment"
-msgstr "Płatność opłacona"
+msgstr "Płatność zakończyła się powodzeniem"
 
-#: commerce_dotpay.module:285
-msgid "Dotpay is not configured for use. Merchant id has not been specified."
-msgstr "Dotpay nie został skonfigurowany poprawnie, wprowadź ID"
+#: include/Confirm.php:244
+msgid "New payment"
+msgstr "Płatność zainicjowana"
 
-#: commerce_dotpay.module:290
-msgid "Dotpay is not configured for use. Merchant pin has not been specified."
-msgstr "Dotpay nie został skonfigurowany poprawnie, wprowadź PIN"
+#: include/Dotpay.php:395
+msgid "You didn't fill all required fields."
+msgstr "Nie uzupełniłeś wszystkich wymaganych pól."
 
-#: commerce_dotpay.module:317
-msgid "Dotpay is not configured for this currency."
-msgstr "Dotpay nie obsługuje wybranej waluty"
+#: include/Dotpay.php:396
+msgid "Your BLIK code is incorrect."
+msgstr "Twój kod BLIK jest niepoprawny"
 
-#: commerce_dotpay.module:332
-msgid "Order @order_number at @store"
-msgstr "Zamówienie nr @order_number w @store"
+#: include/Dotpay.php:397
+msgid "Select a payment channel."
+msgstr "Wybierz kanał płatności."
 
-#: commerce_dotpay.module:358
-msgid "Redirect to Dotpay platform"
-msgstr "Przekierowanie do Dotpay"
+#: include/Dotpay.php:398
+msgid "Your phone number is incorrect."
+msgstr "Twój numer telefonu jest niepoprawny."
 
-#: commerce_dotpay.module:422
-msgid "Polish"
-msgstr "Polski"
+#: include/Instruction.php:244
+msgid "Download blankiet"
+msgstr "Pobierz blankiet"
 
-#: commerce_dotpay.module:423
-msgid "English"
-msgstr "Angielski"
+#: include/Instruction.php:246
+msgid "Make a money transfer"
+msgstr "Zrób przelew bankowy"
 
-#: commerce_dotpay.module:424
-msgid "German"
-msgstr "Niemiecki"
+#: include/RegisterOrder.php:132 include/Channel/AbstractChannel.php:89
+msgid "Order @order_number"
+msgstr "Numer zamówienia @order_number"
 
-#: commerce_dotpay.module:425
-msgid "Italian"
-msgstr "Włoski"
+#: include/Settings.php:262
+msgid "Main settings (required)"
+msgstr "Ustawienia główne (wymagane)"
 
-#: commerce_dotpay.module:426
-msgid "French"
-msgstr "Francuski"
+#: include/Settings.php:264
+msgid "ID"
+msgstr "ID"
 
-#: commerce_dotpay.module:427
-msgid "Spanish"
-msgstr "Hiszpańki"
+#: include/Settings.php:265
+msgid "Your seller 6 digits ID (The same as in Dotpay user panel)"
+msgstr "Numer ID ( 6 cyfr ) - przepisz z panelu Dotpay"
 
-#: commerce_dotpay.module:428
-msgid "Czech"
-msgstr "Czeski"
+#: include/Settings.php:265
+msgid ""
+"Please contact the Customer Care to get new account if your ID has less than "
+"6 digits"
+msgstr ""
+"Jeśli Twoje ID ma mniej niż 6 cyfr, skontaktuj się z BOK Dotpay w celu "
+"założenia konta w nowym środowisku"
 
-#: commerce_dotpay.module:429
-msgid "Russian"
-msgstr "Rosyjski"
+#: include/Settings.php:265
+msgid "https://ssl.dotpay.pl/en/customer_care"
+msgstr "http://www.dotpay.pl/kontakt/biuro-obslugi-klienta/"
 
-#: commerce_dotpay.module:430
-msgid "Bulgarian"
-msgstr "Bułgarski"
+#: include/Settings.php:265
+msgid "Contact"
+msgstr "Kontakt"
 
-#: commerce_dotpay.module:460;464
-msgid "commerce_dotpay"
-msgstr "commerce_dotpay"
+#: include/Settings.php:273
+msgid "PIN"
+msgstr "PIN"
 
-#: commerce_dotpay.module:460
-msgid "bad method - only POST method is allowed"
-msgstr "Tylko metoda typu $_POST jest dozwolona"
+#: include/Settings.php:274
+msgid "Your seller PIN (The same as in Dotpay user panel)"
+msgstr "PIN przepisz z panelu Dotpay"
 
-#: commerce_dotpay.module:464
-msgid "untrusted ip"
-msgstr "Ip z niezaufanego źródła"
+#: include/Settings.php:282
+msgid "Test Mode"
+msgstr "Tryb testowy"
 
-#: commerce_dotpay.info:0
-msgid "Commerce Dotpay"
-msgstr "Dotpay"
+#: include/Settings.php:283
+msgid "I'm using Dotpay test account (test ID) to payment simulations"
+msgstr "Używam konta testowego w Dotpay (ID testowe) do symulacji płatności"
 
-#: commerce_dotpay.info:0
-msgid "Implements Dotpay payment services for use with Drupal Commerce."
-msgstr "Implementacja płatności Dotpay"
+#: include/Settings.php:283
+msgid "Required Dotpay test account:"
+msgstr "Wymagane konto testowe Dotpay:"
 
-#: commerce_dotpay.info:0
-msgid "Commerce (payment)"
-msgstr "Commerce (payment)"
+#: include/Settings.php:283
+msgid "Dotpay test account registration"
+msgstr "Rejestracja konta testowego w systemie Dotpay"
 
+#: include/Settings.php:283
+msgid "registration"
+msgstr "rejestracja"
+
+#: include/Settings.php:285 include/Settings.php:297 include/Settings.php:330
+msgid "Enable"
+msgstr "Włącz"
+
+#: include/Settings.php:286 include/Settings.php:298 include/Settings.php:331
+msgid "Disable"
+msgstr "Wyłącz"
+
+#: include/Settings.php:294
+msgid "Dotpay widget enabled"
+msgstr "Włącz widget (prezentacja kanałów płatności)"
+
+#: include/Settings.php:295
+msgid "Display payment channels in a shop"
+msgstr "Wyświetlanie kanałów płatności na stronie sklepu"
+
+#: include/Settings.php:304
+msgid "Additional settings:"
+msgstr "Ustawienia dodatkowe:"
+
+#: include/Settings.php:304
+msgid ""
+"Required for proper operation One Click and display instructions for "
+"Transfer channels (wire transfer data are not passed to the bank and a payer "
+"needs to copy or write the data manually)"
+msgstr ""
+"Wymagane dla poprawnego działania One Click oraz wyświetlenia na stronie "
+"sklepu instrukcji płatniczych dla kanałów nietransferowych."
+
+#: include/Settings.php:306
+msgid "Dotpay API username"
+msgstr "Nazwa użytkownika API"
+
+#: include/Settings.php:307
+msgid "Your username for Dotpay seller panel"
+msgstr "Twój login do panelu administracyjnego Dotpay "
+
+#: include/Settings.php:315
+msgid "Dotpay API password"
+msgstr "Hasło API"
+
+#: include/Settings.php:316
+msgid "Your password for Dotpay seller panel"
+msgstr "Twoje hasło do panelu administracyjnego Dotpay"
+
+#: include/Settings.php:325
+msgid "Separate ID for foreign currencies"
+msgstr "Osobne konto Dotpay dla płatności walutowych"
+
+#: include/Settings.php:327
+msgid "I have separate ID for foreign currencies"
+msgstr "Posiadam osobne konto dla płatności walutowych"
+
+#: include/Settings.php:328
+msgid "You can enable separate ID for foreign currencies"
+msgstr ""
+"Możesz włączyć osobny kanał kartowy dla księgowania wpłat w konkretnej "
+"walucie"
+
+#: include/Settings.php:337
+msgid "ID for foreign currencies account"
+msgstr "Numer ID dla konta z kanałem walutowym"
+
+#: include/Settings.php:338
+msgid "Seller ID for separated card channel (copy from Dotpay user panel)"
+msgstr ""
+"ID sprzedawcy dla osobnego kanału walutowego ( przepisz z panelu Dotpay)"
+
+#: include/Settings.php:346
+msgid "PIN for foreign currencies account"
+msgstr "PIN dla konta z kanałem walutowym"
+
+#: include/Settings.php:347
+msgid "Seller PIN for separated card channel (copy from Dotpay user panel)"
+msgstr ""
+"PIN sprzedawcy dla osobnego kanału walutowego ( przepisz z panelu Dotpay)"
+
+#: include/Settings.php:356
+msgid "Currencies for separate ID"
+msgstr "Waluty, dla których kanał walutowy będzie dostępny"
+
+#: include/Settings.php:357
+msgid "Please enter currency codes separated by commas, for example: EUR,USD"
+msgstr "Proszę podać kody walut, oddzielone przecinkami, np.: EUR,USD"
+
+#: include/Channel/Blik.php:47
+msgid "Blik channel separately by Dotpay"
+msgstr "Osobno kanał BLIK przez Dotpay"
+
+#: include/Channel/Blik.php:48
+msgid "Blik via Dotpay"
+msgstr "Blik (dzięki Dotpay)"
+
+#: include/Channel/Blik.php:49
+msgid "Blik by Dotpay"
+msgstr "BLIK przez Dotpay"
+
+#: include/Channel/Blik.php:74
+msgid "Pay via BLIK (by Dotpay)"
+msgstr "Płać przez BLIK (dzięki Dotpay)"
+
+#: include/Channel/Blik.php:74
+msgid "To continue payment, please enter the BLIK code."
+msgstr "Aby kontynuować płatność, wprowadź poniżej kod BLIK."
+
+#: include/Channel/Blik.php:76
+msgid "BLIK code"
+msgstr "Kod BLIK"
+
+#: include/Channel/Blik.php:77
+msgid ""
+"The BLIK code is a 6-digit authorisation number, which is displayed after "
+"you log on to the Mobile Application from Your Bank."
+msgstr ""
+"Kod BLIK to 6-cyfrowy kod autoryzacyjny, który możesz uzyskać zaraz po "
+"zalogowaniu w aplikacji mobilnej Twojego banku."
+
+#: include/Channel/Blik.php:90
+msgid "Pay via BLIK"
+msgstr "Płać przez BLIK"
+
+#: include/Channel/CC.php:50
+msgid "Credit card channel separately by Dotpay"
+msgstr "Osobno kanał kartowy przez Dotpay"
+
+#: include/Channel/CC.php:51
+msgid "Credit card via Dotpay"
+msgstr "Karta płatnicza (dzięki Dotpay)"
+
+#: include/Channel/CC.php:52
+msgid "Credit card by Dotpay"
+msgstr "Karty płatnicze przez Dotpay"
+
+#: include/Channel/CC.php:77 include/Channel/CC.php:93
+#: include/Channel/PV.php:46
+msgid "Pay via credit card"
+msgstr "Płatność kartą płatniczą"
+
+#: include/Channel/CC.php:77
+msgid "To continue payment, please complete Your data."
+msgstr "Aby kontynuować płatność, uzupełnij proszę Twoje dane."
+
+#: include/Channel/CC.php:79
+msgid "Enter Your phone number:"
+msgstr "Twój numer telefonu:"
+
+#: include/Channel/CC.php:80
+msgid "This payment method requires additions your data."
+msgstr "Ta metoda płatności wymaga podania dodatkowych danych."
+
+#: include/Channel/MasterPass.php:48
+msgid "MasterPass channel separately via Dotpay"
+msgstr "Osobno kanał MasterPass poprzez Dotpay"
+
+#: include/Channel/MasterPass.php:49
+msgid "MasterPass via Dotpay"
+msgstr "MasterPass (dzięki Dotpay)"
+
+#: include/Channel/MasterPass.php:50
+msgid "MasterPass by Dotpay"
+msgstr "MasterPass przez Dotpay"
+
+#: include/Channel/MasterPass.php:77
+msgid " MasterPass via Dotpay"
+msgstr "MasterPass (dzięki Dotpay)"
+
+#: include/Channel/MasterPass.php:83
+msgid "Pay via MasterPass"
+msgstr "Płać przez MasterPass"
+
+#: include/Channel/OneClick.php:49
+msgid "One Click card channel via Dotpay"
+msgstr "Kanał one click dla kart płatniczych dzięki Dotpay"
+
+#: include/Channel/OneClick.php:50
+msgid "Credit card - One Click by Dotpay"
+msgstr "Płatności kartowe One Click  (dzięki Dotpay)"
+
+#: include/Channel/OneClick.php:51
+msgid "One Click by Dotpay"
+msgstr "Płatności One Click przez Dotpay"
+
+#: include/Channel/OneClick.php:91
+msgid "Pay via credit card by One Click"
+msgstr "Płatność One Click kartą płatniczą"
+
+#: include/Channel/OneClick.php:97
+msgid "Choose from saved cards"
+msgstr "Wybierz spośród zapisanych kart"
+
+#: include/Channel/OneClick.php:97
+msgid "Manage your saved cards"
+msgstr "Zarządzaj swoimi zapisanymi kartami"
+
+#: include/Channel/OneClick.php:106
+msgid "Saved cards"
+msgstr "Twoje zapisane karty:"
+
+#: include/Channel/OneClick.php:116
+msgid "Register a new card"
+msgstr "Zarejestruj nową kartę"
+
+#: include/Channel/OneClick.php:125
+msgid ""
+"I agree to repeated loading bill my credit card for the payment One-Click by "
+"way of purchase of goods or services offered by the store."
+msgstr ""
+"Wyrażam zgodę na powtarzające się obciążanie rachunku mojej karty płatniczej "
+"dla celów realizacji płatności One Click, tytułem zakupu towarów lub usług "
+"oferowanych przez Sklep."
+
+#: include/Channel/OneClick.php:137
+msgid "Pay faster via Credit Card"
+msgstr "Płać szybciej kartami płatniczymi"
+
+#: include/Channel/PV.php:26
+msgid "Card channel for Your currency"
+msgstr "Kanał kartowy dla Twoje waluty"
+
+#: include/Channel/PV.php:27
+msgid "Card channel"
+msgstr "Kanał kartowy"
+
+#: include/Channel/PV.php:28
+msgid "Card channel by Dotpay"
+msgstr "Karty płatnicze dzięki Dotpay"
+
+#: include/Channel/Standard.php:49
+msgid "Dotpay main channel"
+msgstr "Główny kanał płatności Dotpay"
+
+#: include/Channel/Standard.php:50
+msgid "Dotpay - fast and secure payment"
+msgstr "Dotpay - szybkie i bezpieczne płatności"
+
+#: include/Channel/Standard.php:51
+msgid "Dotpay payment channels"
+msgstr "Kanały płatności Dotpay"
+
+#: include/Channel/Standard.php:83
+msgid " Dotpay - fast and secure payment"
+msgstr "Dotpay - szybkie i bezpieczne płatności"
+
+#: include/Channel/Standard.php:83
+msgid "Select one of the available below payment methods"
+msgstr "Wybierz jedną z dostępnych poniżej metod płatności"
+
+#: include/Channel/Standard.php:94
+msgid "Pay via Dotpay"
+msgstr "Płać przez Dotpay"
+
+#~ msgid "Status confirmed"
+#~ msgstr "Status płatności został potwierdzony."
+
+#~ msgid "Success"
+#~ msgstr "Sukces"
+
+#~ msgid "Payment can not confirmated by Dotpay"
+#~ msgstr "Płatność nie może być potwierdzona przez Dotpay"
+
+#~ msgid "Error"
+#~ msgstr "Błąd"
+
+#~ msgid "Order not found"
+#~ msgstr "Nie znaleziono zamówienia"
+
+#~ msgid "Payment wait for confirmation by Dotpay"
+#~ msgstr "Status płatności oczekuje na potwierdzenie przez Dotpay ..."
+
+#~ msgid "Timeout of waiting for confirmation of payment"
+#~ msgstr "Upłynął czas oczekiwania na potwierdzenie płatności"
+
+#~ msgid "You can go to your account page"
+#~ msgstr "Możesz iść do strony twojego konta"
+
+#~ msgid "Request is preparing..."
+#~ msgstr "Zapytanie jest przygotowywane..."
+
+#~ msgid ""
+#~ "To pay by cash you need login to your bank system and make a money "
+#~ "transfer, entering the following data:"
+#~ msgstr ""
+#~ "Aby zapłacić, powinieneś zalogować się do Twojego banku i wykonać "
+#~ "przelew, podając poniższe dane:"
+
+#~ msgid "Account number"
+#~ msgstr "Numer konta"
+
+#~ msgid "Amount of payment"
+#~ msgstr "Kwota płatności"
+
+#~ msgid "Title of payment"
+#~ msgstr "Tytuł płatności"
+
+#~ msgid "Name of recipient"
+#~ msgstr "Nazwa odbiorcy"
+
+#~ msgid "Street"
+#~ msgstr "Ulica"
+
+#~ msgid "Post code and city"
+#~ msgstr "Kod pocztowy oraz miasto"
+
+#~ msgid "Payment channel logo"
+#~ msgstr "Logo kanału płatności"
+
+#~ msgid ""
+#~ "Not following the above procedure (e.g. changing the amount or payment "
+#~ "title) will make your payment not handled automatically, and therefore "
+#~ "lengthen finalization time of the transaction."
+#~ msgstr ""
+#~ "Nie zastosowanie się do powyższej procedury (podanie innej kwoty niż "
+#~ "podana, innego tytułu płatności, nie wybrania przycisku potwierdzenia) "
+#~ "spowoduje, że Państwa płatnośc nie zostanie obsłużona automatycznie, a "
+#~ "tym samym wydłuży się czas realizacji transakcji."
+
+#~ msgid "Do you want to remove credit card"
+#~ msgstr "Czy chcesz usunąć kartę"
+
+#~ msgid "Your credit card was removed successfully from this shop"
+#~ msgstr "Twoja karta kredytowa została skutecznie usunięta z tego sklepu"
+
+#~ msgid "You can not remove this credit card"
+#~ msgstr "Nie możesz usunąć tej karty płatniczej"
+
+#~ msgid "Logo"
+#~ msgstr "Logo"
+
+#~ msgid "Card brand"
+#~ msgstr "Marka karty"
+
+#~ msgid "Card mask name"
+#~ msgstr "Nazwa zamaskowana"
+
+#~ msgid "Register date"
+#~ msgstr "Data rejestracji"
+
+#~ msgid "Remove"
+#~ msgstr "Wyrejestruj"
+
+#~ msgid "Payments supported by Dotpay"
+#~ msgstr "Płatności obsługiwane przez Dotpay"
+
+#~ msgid "Your saved cards"
+#~ msgstr "Moje zapisane karty"
+
+#~ msgid "Id"
+#~ msgstr "Id"
+
+#~ msgid "Your seller ID"
+#~ msgstr "Twój identyfikator sprzedawcy"
+
+#~ msgid "Pin"
+#~ msgstr "Pin"
+
+#~ msgid "Your seller PIN"
+#~ msgstr "Twój Pin sprzedawcy"
+
+#~ msgid "Test environment to payment simulations"
+#~ msgstr "Środowisko testowe do symulacji płatności"
+
+#~ msgid "Widget"
+#~ msgstr "Widget"
+
+#~ msgid "Dotpay widget on shop site"
+#~ msgstr "Widget Dotpay na stronie sklepu"
+
+#~ msgid "Username"
+#~ msgstr "Nazwa użytkownika"
+
+#~ msgid "Username for Seller panel"
+#~ msgstr "Nazwa użytkownika do panelu sprzedawcy"
+
+#~ msgid "Password"
+#~ msgstr "Hasło"
+
+#~ msgid "Password for Seller panel"
+#~ msgstr "Hasło do panelu sprzedawcy"
+
+#~ msgid "Id for CC channel"
+#~ msgstr "Id dla kanału kartowego"
+
+#~ msgid "Seller ID for separated card channel"
+#~ msgstr "Identyfikator sprzedawcy dla osobnego kanału kartowego"
+
+#~ msgid "Pin for CC channel"
+#~ msgstr "Pin dla kanału kartowego"
+
+#~ msgid "Seller PIN for separated card channel"
+#~ msgstr "PIN sprzedawcy dla osobnego kanału kartowego"
+
+#~ msgid "Currencies for CC channel"
+#~ msgstr "Waluty dla kanału kartowego"
+
+#~ msgid "Currencies for separated card channel"
+#~ msgstr "Waluty dla osobnego kanału kartowego"
+
+#~ msgid "Separated channel for selected currencies"
+#~ msgstr "Osobny kanał kartowy dla wybranych walut"
+
+#~ msgid "CC channel for currencies"
+#~ msgstr "Kanał kartowy dla walut"
+
+#~ msgid "Credit card channel"
+#~ msgstr "Kanał "
+
+#~ msgid "Credit card"
+#~ msgstr "Karty kredytowe"
+
+#~ msgid "Blik channel by Dotpay"
+#~ msgstr "Osobno kanał Blik poprzez Dotpay"
+
+#~ msgid "Blik"
+#~ msgstr "BLIK (dzięki Dotpay.pl)"
+
+#~ msgid "MasterPass channel"
+#~ msgstr "Osobno kanał MasterPass poprzez Dotpay"
+
+#~ msgid "MasterPass"
+#~ msgstr "MasterPass (dzięki Dotpay.pl)"
+
+#~ msgid "Blik channel"
+#~ msgstr "Kanał BLIK"
+
+#~ msgid "One Click card channel"
+#~ msgstr "karty płatnicze One Click"
+
+#~ msgid "One Click"
+#~ msgstr "One Click"
+
+#~ msgid "Dotpay"
+#~ msgstr "Dotpay"
+
+#~ msgid "Test environment to perform test payments"
+#~ msgstr "Środowisko testowe do symulacji płatności"

@@ -1,0 +1,142 @@
+<style>
+#instruction {
+    text-align: left;
+    float: left;
+    margin: 0px;
+    padding: 0px 10px 10px;
+    border: 1px solid #F1F1F1;
+    width: 100%;
+}
+
+#instruction label {
+    display: block;
+    font-weight: normal;
+    font-size: 18px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+
+#instruction label > input, #instruction label > .input-group {
+    margin-top: 7px;
+}
+
+#instruction input.important {
+    margin: 0px;
+    color: #881920;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#instruction .fullwidth {
+    width: 100%;
+}
+
+#instruction .input-group-addon {
+    font-size: 15px;
+    min-width: 46px;
+}
+
+#instruction-content {
+    font-size: 1.3em;
+    margin: 15px 0px 20px;
+    text-align: center;
+}
+
+#blankiet-download-form {
+    text-align: center;
+    padding: 0px;
+    margin: 20px 0px;
+}
+
+#channel_container_confirm {
+    border-radius: 3px;
+    display: inline-block;
+    margin: 5px 10px;
+    border: 1px solid #F0F0F0;
+    background-color: #FFF;
+    text-align: center;
+    width: 200px;
+}
+
+#channel_container_confirm a {
+    width: 100%;
+    height: 100%;
+}
+
+#channel_container_confirm img {
+    margin: auto;
+}
+
+#channel_container_confirm span {
+    font-size: 1.3em;
+    font-weight: bold;
+    display: block;
+    margin: 10px;
+}
+</style>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery('#instruction input').keypress(function(e){
+            e.preventDefault();
+        }).focus(function(e){
+            jQuery(this).select();
+        });
+    });
+</script>
+<section id="instruction">
+    <div class="row">
+        <div class="col-xs-12">
+            <p id="instruction-content"><?php echo t('To pay by cash you need login to your bank system and make a money transfer, entering the following data:'); ?></p>
+        </div>
+        <div class="col-md-6">
+            <?php if($vars['instruction']->getBankAccount()!=NULL): ?>
+            <label clas="row">
+                <?php echo t('Account number'); ?>
+                <input type="text" class="important fullwidth" id="iban" value="<?php echo $vars['instruction']->getBankAccount(); ?>" />
+            </label>
+            <?php endif; ?>
+            <label clas="row">
+                <?php echo t('Amount of payment'); ?>
+                <div class="input-group fullwidth">
+                    <input type="text" class="important col-md-10" id="amount" value="<?php echo $vars['instruction']->getAmount(); ?>" aria-describedby="transfer-currency">
+                    <span class="input-group-addon col-md-2" id="transfer-currency"><?php echo $vars['instruction']->getCurrency(); ?></span>
+                </div>
+            </label>
+            <label clas="row">
+                <?php echo t('Title of payment'); ?>
+                <input type="text" class="important fullwidth" id="payment-title" value="<?php echo $vars['instruction']->getNumber(); ?>" />
+            </label>
+        </div>
+        <div class="col-md-6">
+            <label clas="row">
+                <?php echo t('Name of recipient'); ?>
+                <input type="text" class="important fullwidth" id="recipient" value="<?php echo $vars['instruction']->getRecipient(); ?>" />
+            </label>
+            <label clas="row">
+                <?php echo t('Street'); ?>
+                <input type="text" class="important fullwidth" id="street" value="<?php echo $vars['instruction']->getStreet(); ?>" />
+            </label>
+            <label clas="row">
+                <?php echo t('Post code and city'); ?>
+                <input type="text" class="important fullwidth" id="post-code-city" value="<?php echo $vars['instruction']->getCity(); ?>" />
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <section id="payment-form" class="col-xs-12">
+            <div id="blankiet-download-form">
+                <div id="channel_container_confirm">
+                    <a href="<?php echo $vars['instruction']->getAddress(); ?>" target="_blank" title="<?php echo $vars['instruction']->getCommand(); ?>">
+                        <div>
+                            <img src="<?php echo $vars['instruction']->getChannelLogo(); ?>" alt="<?php echo t('Payment channel logo'); ?>" />
+                            <span><?php echo $vars['instruction']->getCommand(); ?></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <div class="col-xs-12">
+            <p class="alert alert-info"><?php echo t('Not following the above procedure (e.g. changing the amount or payment title) will make your payment not handled automatically, and therefore lengthen finalization time of the transaction.'); ?></p>
+        </div>
+    </div>
+</section>

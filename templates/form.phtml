@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><?php echo t('Request is preparing...'); ?></title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <form action="<?php echo $this->target; ?>" method="POST" id="dotpay_payment_form">
+        <?php foreach($this->fields as $name => $value): ?>
+            <input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>" />
+        <?php endforeach; ?>
+        </form>
+        <script type="text/javascript">
+            setTimeout(function(){document.getElementById('dotpay_payment_form').submit();}, 1);
+        </script>
+    </body>
+</html>

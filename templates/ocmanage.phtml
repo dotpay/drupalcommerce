@@ -1,0 +1,69 @@
+<style>
+    .dotpay_manage_cards {
+        width: 100%;
+    }
+    .dotpay_manage_cards th {
+        font-weight: bold;
+    }
+    .dotpay_manage_cards td, th {
+        text-align: center;
+    }
+    .dotpay_remove_card {
+        margin: auto;
+    }
+    .dotpay-card-brand-logo {
+        max-height: 30px;
+    }
+    .dotpay_manage_cards tr:hover:not(:first-child) {
+        background-color: #e3e3e3;
+    }
+    .dotpay-reflink {
+        float: right;
+        color: rgb(137, 138, 140) !important;
+    }
+</style>
+<script type="text/javascript">
+    if(typeof jQuery!="undefined") {
+        jQuery(document).ready(function(){
+           jQuery('.dotpay_remove_card').click(function(){
+                if(confirm("<?php echo t('Do you want to remove credit card'); ?>"+' '+jQuery(this).parents('tr').find('td.dotpay-mask-number').text()+'?')) {
+                    var cardId = jQuery(this).data('id');
+                    jQuery.post(
+                        "<?php echo url('dotpay/oc/remove'); ?>",
+                        {
+                            "cardId":cardId
+                        },
+                        function(r){
+                            if(r=='1') {
+                                alert("<?php echo t('Your credit card was removed successfully from this shop'); ?>");
+                                location.reload();
+                            } else {
+                                alert("<?php echo t('You can not remove this credit card'); ?>");
+                            }
+                            
+                        }
+                    );
+                }
+            });
+        });
+    }
+</script>
+<table class="dotpay_manage_cards">
+    <tr>
+        <th><?php echo t('Logo'); ?></th>
+        <th><?php echo t('Card brand'); ?></th>
+        <th><?php echo t('Card mask name'); ?></th>
+        <th><?php echo t('Register date'); ?></th>
+        <th><?php echo t('Remove'); ?></th>
+    </tr>
+    <?php foreach($vars['cards'] as $card): ?>
+    <tr>
+        <td><img class="dotpay-card-brand-logo" src="<?php echo $card->image; ?>" alt="<?php echo $card->brand; ?>" title="<?php echo $card->brand; ?>" /></td>
+        <td><?php echo $card->brand; ?></td>
+        <td class="dotpay-mask-number"><?php echo $card->mask; ?></td>
+        <td><?php echo $card->register_date; ?></td>
+        <td><input data-id="<?php echo $card->cc_id; ?>" class="dotpay_remove_card" type="button" value="X" /></td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+<a class="dotpay-reflink" target="_blank" href="http://www.dotpay.pl"><?php echo t('Payments supported by Dotpay'); ?></a>

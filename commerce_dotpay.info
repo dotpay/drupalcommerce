@@ -1,6 +1,6 @@
 name = Commerce Dotpay
 description = Implements dotpay payment services for use with Drupal Commerce.
-package = Commerce (payment)
+package = Commerce - Payment
 core = 7.x
 dependencies[] = commerce
 dependencies[] = commerce_ui
