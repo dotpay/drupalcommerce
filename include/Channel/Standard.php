@@ -178,7 +178,8 @@ class Standard extends AbstractChannel {
                         "lang": "'.Dotpay::getCorrectLanguage().'",
                         "widgetFormContainerClass": "my-form-widget-container",
                         "offlineChannel": "mark",
-                        "offlineChannelTooltip": true
+                        "offlineChannelTooltip": true,
+                        "host": "'.Dotpay::getInstance()->getSettings()->getPaymentUrl().'payment_api/channels/"
                     };';    
         $element = array(
             '#type' => 'markup',

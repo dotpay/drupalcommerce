@@ -259,13 +259,13 @@ class Settings {
     public function getForm() {
         return array(
             'id' => array(
-				'#prefix' => '<div class="dotformmain"><h4>'.t('Main settings (required)').'</h4><p>&nbsp;</p>',
+                '#prefix' => '<div class="dotformmain"><h4>'.t('Main settings (required)').'</h4><p>&nbsp;</p>',
                 '#type' => 'textfield',
                 '#title' => t('ID'),
                 '#description' => t('Your seller 6 digits ID (The same as in Dotpay user panel)').'<br>'.t('Please contact the Customer Care to get new account if your ID has less than 6 digits').':&nbsp;<a href="'.t('https://ssl.dotpay.pl/en/customer_care').'" target="_blank"><b>'.t('Contact').'</b></a></span><br>',
                 '#default_value' => $this->getId(),
-				'#size' => 6,
-				'#maxlength' => 6,
+                '#size' => 6,
+                '#maxlength' => 6,
                 '#required' => TRUE,
             ),
             'pin' => array(
@@ -273,8 +273,8 @@ class Settings {
                 '#title' => t('PIN'),
                 '#description' => t('Your seller PIN (The same as in Dotpay user panel)').'<br>',
                 '#default_value' => $this->getPin(),
-				'#size' => 32,
-				'#maxlength' => 32,
+                '#size' => 32,
+                '#maxlength' => 32,
                 '#required' => TRUE,
             ),
             'testMode' => array(
@@ -286,10 +286,10 @@ class Settings {
                     0 => t('Disable')
                 ),
                 '#default_value' => (int)$this->getTestMode(),
-				'#required' => TRUE,
+                '#required' => TRUE,
             ),
             'widget' => array(
-				'#suffix' => '</div><br>', 
+                '#suffix' => '</div><br>', 
                 '#type' => 'select',
                 '#title' => t('Dotpay widget enabled'),
                 '#description' => t('Display payment channels in a shop'),
@@ -301,28 +301,28 @@ class Settings {
             ),
 
             'apiUsername' => array(
-				'#prefix' => '<h4>'.t('Additional settings:').'</h4><div class="dotformoptional"><h4>Dotpay API</h4><p>'.t('Required for proper operation One Click and display instructions for Transfer channels (wire transfer data are not passed to the bank and a payer needs to copy or write the data manually)').'</p>',
-				'#type' => 'textfield',
+                '#prefix' => '<h4>'.t('Additional settings:').'</h4><div class="dotformoptional"><h4>Dotpay API</h4><p>'.t('Required for proper operation One Click and display instructions for Transfer channels (wire transfer data are not passed to the bank and a payer needs to copy or write the data manually)').'</p>',
+                '#type' => 'textfield',
                 '#title' => t('Dotpay API username'),
                 '#description' => t('Your username for Dotpay seller panel'),
                 '#default_value' => $this->getApiUsername(),
-				'#size' => 32,
+                '#size' => 32,
                 '#required' => FALSE,
             ),
             'apiPassword' => array(
-				'#suffix' => '</div><br>', 
-				'#type' => 'password',
-				'#title' => t('Dotpay API password'),
-				'#description' => t('Your password for Dotpay seller panel'),
-				'#size' => 32,
-				'#required' => FALSE,
-						'#attributes' => array(
-							'value' => $this->getApiPassword()
-						)
+                '#suffix' => '</div><br>', 
+                '#type' => 'password',
+                '#title' => t('Dotpay API password'),
+                '#description' => t('Your password for Dotpay seller panel'),
+                '#size' => 32,
+                '#required' => FALSE,
+                '#attributes' => array(
+                    'value' => $this->getApiPassword()
+                )
             ),
 			
-			'pvCardChannel' => array(
-				'#prefix' => '<div class="dotformoptional"><h4>'.t('Separate ID for foreign currencies').'</h4><p>&nbsp;</p>',
+            'pvCardChannel' => array(
+                '#prefix' => '<div class="dotformoptional"><h4>'.t('Separate ID for foreign currencies').'</h4><p>&nbsp;</p>',
                 '#type' => 'select',
                 '#title' => t('I have separate ID for foreign currencies'),
                 '#description' => t('You can enable separate ID for foreign currencies'),
@@ -337,8 +337,8 @@ class Settings {
                 '#title' => t('ID for foreign currencies account'),
                 '#description' => t('Seller ID for separated card channel (copy from Dotpay user panel)'),
                 '#default_value' => $this->getPvId(),
-				'#size' => 6,
-				'#maxlength' => 6,
+                '#size' => 6,
+                '#maxlength' => 6,
                 '#required' => FALSE,
             ),
             'pvPin' => array(
@@ -346,18 +346,18 @@ class Settings {
                 '#title' => t('PIN for foreign currencies account'),
                 '#description' => t('Seller PIN for separated card channel (copy from Dotpay user panel)'),
                 '#default_value' => $this->getPvPin(),
-				'#size' => 32,
-				'#maxlength' => 32,
+                '#size' => 32,
+                '#maxlength' => 32,
                 '#required' => FALSE,
             ),
             'pvCurrency' => array(
-				'#suffix' => '</div><br>', 
+                '#suffix' => '</div><br>', 
                 '#type' => 'textfield',
                 '#title' => t('Currencies for separate ID'),
                 '#description' => t('Please enter currency codes separated by commas, for example: EUR,USD'),
                 '#default_value' => $this->getPvCurrency(),
-				'#size' => 16,
-				'#maxlength' => 32,
+                '#size' => 16,
+                '#maxlength' => 32,
                 '#required' => FALSE,
             ),
 			

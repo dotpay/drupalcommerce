@@ -36,7 +36,7 @@ use Dotpay\Channel\AbstractChannel;
 require_once(__DIR__.'/include/bootstrap.php');
 require_once(__DIR__.'/commerce_dotpay_channels.inc');
 
-define('DOTPAY_GATEWAY_VERSION', '2.0.1');
+define('DOTPAY_GATEWAY_VERSION', '2.0.2');
 
 /**
  * Implemenation of hook_commerce_payment_method_info()
