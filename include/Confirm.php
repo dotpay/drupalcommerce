@@ -56,7 +56,6 @@ class Confirm {
          $this->checkMethod() &&
          $this->checkAmountAndCurrency() &&
          $this->checkId() &&
-         $this->checkEmail() &&
          $this->checkSignature() &&
          $this->changeStatus() && 
          $this->registerOcCard());
@@ -129,17 +128,6 @@ class Confirm {
         if(Dotpay::getParam('id')==$id)
             return true;
         $this->message = 'DrupalCommerce - ERROR ID';
-        return false;
-    }
-    
-    /**
-     * Checks, if customer email address from request is the same as in order details
-     * @return boolean
-     */
-    private function checkEmail() {
-        if(Dotpay::getParam('email')==$this->getOrder()->mail)
-            return true;
-        $this->message = 'DrupalCommerce - FAIL EMAIL';
         return false;
     }
     
