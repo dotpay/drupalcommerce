@@ -36,7 +36,7 @@ class CardBrand {
     public static function install() {
         $sql = 'CREATE TABLE IF NOT EXISTS `'.self::tableName.'` (
                     `name` varchar(20) DEFAULT NULL,
-                    `image` varchar(256) DEFAULT NULL,
+                    `image` varchar(170) DEFAULT NULL,
                     PRIMARY KEY (`name`),
                     UNIQUE KEY `brand_img` (`image`)
                 ) DEFAULT CHARSET=utf8;';
