@@ -90,7 +90,13 @@
             "url":"<?php echo $this->getStatusUrl(); ?>",
             "method":"POST",
             "success":function(r){
-                var status = r.toString().trim();
+                var status;
+                if(typeof(r) == 'object')
+                    status = r.toString().trim();
+                else if(typeof(r) == 'string')
+                    status = r.trim();
+                else
+                    status = r;
                 switch(status) {
                     case '1':
                         clearAlerts();
