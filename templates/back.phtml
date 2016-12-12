@@ -90,7 +90,8 @@
             "url":"<?php echo $this->getStatusUrl(); ?>",
             "method":"POST",
             "success":function(r){
-                switch(r) {
+                var status = r.toString().trim();
+                switch(status) {
                     case '1':
                         clearAlerts();
                         createAlert('success', '<?php echo t('Status confirmed'); ?>', '<?php echo t('Success'); ?>');
@@ -108,7 +109,7 @@
                         createAlert('error', '<?php echo t('Order not found'); ?>', '<?php echo t('Error'); ?>');
                         jQuery('.return-to-my-account').show();
                 }
-                if(r!='0')
+                if(status != '0')
                     stopWaiting(interval);
             }
         });
