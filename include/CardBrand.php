@@ -38,7 +38,7 @@ class CardBrand {
                     `name` varchar(20) DEFAULT NULL,
                     `image` varchar(170) DEFAULT NULL,
                     PRIMARY KEY (`name`),
-                    UNIQUE KEY `brand_img` (`image`)
+                    UNIQUE KEY `brand_img` (`image`(200))
                 ) DEFAULT CHARSET=utf8;';
         db_query($sql);
     }
