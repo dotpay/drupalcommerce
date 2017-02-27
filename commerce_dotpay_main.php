@@ -49,6 +49,20 @@ function commerce_dotpay_commerce_payment_method_info() {
 }
 
 /**
+ * Implementation of hook_permission()
+ *
+ * Define permissions used in this module.
+ */
+
+function commerce_dotpay_permission() {
+    return array(
+        'access dotpay ocmanage' => array(
+            'title' => t('Manage own saved cards'),
+            'description' => t('Allows users to access their saved cards management interface at /user/[uid]/ocmanage'),
+        ),
+    );
+}
+/**
  * Implementation of hook_settings_form()
  * Returns data for Drupal API Forms with form of plugin settings
  * @param array|null $settings
@@ -124,7 +138,7 @@ function commerce_dotpay_menu() {
         'page callback' => 'commerce_dotpay_ocmanage',
         'page arguments' => array(1),
         'type' => MENU_LOCAL_TASK,
-        'access callback' => true,
+        'access arguments' => array('access dotpay ocmanage'),
         'weight' => 20,
     );
     $items['dotpay/oc/remove'] = array(
